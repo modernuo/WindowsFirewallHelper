@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2;net4;net5.0</TargetFrameworks>
+    <TargetFramework>net9.0</TargetFramework>
     <PackageId>WindowsFirewallHelper</PackageId>
     <Version>2.2.0.86</Version>
     <Authors>Soroush Falahati</Authors>
@@ -17,10 +17,7 @@
     <AssemblyOriginatorKeyFile>OpenSourceStrongNameSignKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference PrivateAssets="all" Include="MSBump" Version="2.3.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.png">
@@ -31,14 +28,6 @@
       <Pack>true</Pack>
       <PackagePath>\</PackagePath>
     </Content>
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net4'">
-    <Reference Include="System.ServiceProcess"></Reference>
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' != 'net4'">
-    <PackageReference Include="System.ServiceProcess.ServiceController">
-      <Version>5.0.0</Version>
-    </PackageReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using WindowsFirewallHelper.Addresses;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace WindowsFirewallHelper.Tests
 {
@@ -12,63 +13,63 @@ namespace WindowsFirewallHelper.Tests
         public void InvalidParses()
         {
             // Can't parse empty strings
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     SingleIP.Parse("");
                 }
             );
 
             // Can't parse invalid ip addresses
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     SingleIP.Parse("-1.0.0.0");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     SingleIP.Parse("-1::");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     SingleIP.Parse("256.0.0.0");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     SingleIP.Parse("10000::");
                 }
             );
 
             // Can't parse ip ranges containing more than one ip address
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     SingleIP.Parse("192.168.1.1-192.168.2.1");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     SingleIP.Parse("2001:1::-2001:2::");
                 }
             );
 
             // Can't parse network addresses containing more than one ip address
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     SingleIP.Parse("127.0.0.1/28");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     SingleIP.Parse("::1/112");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     SingleIP.Parse("192.168.1.1/255.255.255.0");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     SingleIP.Parse("2001:1::/ffff:ffff:ffff:ffff:ffff:ffff:ffff:0");
                 }
@@ -107,11 +108,11 @@ namespace WindowsFirewallHelper.Tests
 
             var actual = addresses.Select(SingleIP.Parse).ToArray();
 
-            Assert.IsTrue(expected.SequenceEqual(actual));
+            ClassicAssert.IsTrue(expected.SequenceEqual(actual));
 
             var addressesInString = string.Join(',', actual.Select(address => address.ToString()).ToArray());
 
-            Assert.AreEqual(
+            ClassicAssert.AreEqual(
                 "*,*,127.0.0.1,192.168.1.0,192.168.2.0,*,::1,2001:1::,2001:2::",
                 addressesInString
             );

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using WindowsFirewallHelper.Addresses;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace WindowsFirewallHelper.Tests
 {
@@ -13,89 +14,89 @@ namespace WindowsFirewallHelper.Tests
         public void InvalidParses()
         {
             // Can't parse empty strings
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("");
                 }
             );
 
             // Can't parse combined ip address families
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("127.0.0.1/ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("::1/255.255.255.255");
                 }
             );
 
             // Can't parse invalid ip addresses
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("-1.0.0.0");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("-1::");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("256.0.0.0");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("10000::");
                 }
             );
 
             // Can't parse multi ip subnet with `any` addresses
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("0.0.0.0/24");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("::/112");
                 }
             );
 
             // Can't parse ip addresses with zero subnet mask (which means `any`)
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("127.0.0.1/0");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("::1/0");
                 }
             );
 
             // Can't parse ip addresses with higher than possible subnet mask
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("127.0.0.1/33");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("::1/129");
                 }
             );
 
             // Can't parse ip ranges
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("192.168.1.1-192.168.2.1");
                 }
             );
-            Assert.Throws<FormatException>(() =>
+            ClassicAssert.Throws<FormatException>(() =>
                 {
                     NetworkAddress.Parse("2001:1::-2001:2::");
                 }
@@ -143,11 +144,11 @@ namespace WindowsFirewallHelper.Tests
 
             var actual = addresses.Select(NetworkAddress.Parse).ToArray();
 
-            Assert.IsTrue(expected.SequenceEqual(actual));
+            ClassicAssert.IsTrue(expected.SequenceEqual(actual));
 
             var addressesInString = string.Join(',', actual.Select(address => address.ToString()).ToArray());
 
-            Assert.AreEqual(
+            ClassicAssert.AreEqual(
                 "*,*,127.0.0.1,192.168.1.0,192.168.2.0/255.255.255.0,192.168.3.0/255.255.0.0," +
                 "*,::1,2001:1::,2001:2::/ffff:ffff:ffff:ffff:ffff:ffff:ffff:0,2001:3::/ffff:ffff:ffff:ffff:ffff:ffff::",
                 addressesInString
@@ -281,8 +282,8 @@ namespace WindowsFirewallHelper.Tests
             foreach (var expectedRange in expectedRanges)
             {
                 var address = NetworkAddress.Parse(expectedRange.Key);
-                Assert.AreEqual(IPAddress.Parse(expectedRange.Value.Item1), address.StartAddress, "Start of {0}", expectedRange.Key);
-                Assert.AreEqual(IPAddress.Parse(expectedRange.Value.Item2), address.EndAddress, "End of {0}", expectedRange.Key);
+                ClassicAssert.AreEqual(IPAddress.Parse(expectedRange.Value.Item1), address.StartAddress, "Start of {0}", expectedRange.Key);
+                ClassicAssert.AreEqual(IPAddress.Parse(expectedRange.Value.Item2), address.EndAddress, "End of {0}", expectedRange.Key);
             }
         }
     }

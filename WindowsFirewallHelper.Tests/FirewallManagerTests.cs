@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace WindowsFirewallHelper.Tests
 {
@@ -12,11 +13,11 @@ namespace WindowsFirewallHelper.Tests
 
             if (successful)
             {
-                Assert.IsNotNull(instance);
+                ClassicAssert.IsNotNull(instance);
             }
             else
             {
-                Assert.IsNull(instance);
+                ClassicAssert.IsNull(instance);
             }
         }
 
@@ -28,11 +29,11 @@ namespace WindowsFirewallHelper.Tests
 
             if (successful)
             {
-                Assert.IsNotNull(collection);
+                ClassicAssert.IsNotNull(collection);
             }
             else
             {
-                Assert.IsNull(collection);
+                ClassicAssert.IsNull(collection);
             }
         }
     }

@@ -5,6 +5,7 @@ using WindowsFirewallHelper.Addresses;
 using WindowsFirewallHelper.Exceptions;
 using WindowsFirewallHelper.FirewallRules;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace WindowsFirewallHelper.Tests
 {
@@ -31,14 +32,14 @@ namespace WindowsFirewallHelper.Tests
             _firewall.Rules.Add(rule);
 
             var checkRule = _firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName);
-            Assert.IsNotNull(checkRule);
-            Assert.AreEqual(checkRule.ApplicationName.ToLower(), fileName.ToLower());
-            Assert.AreEqual(checkRule.Profiles, FirewallProfiles.Domain | FirewallProfiles.Private);
+            ClassicAssert.IsNotNull(checkRule);
+            ClassicAssert.AreEqual(checkRule.ApplicationName.ToLower(), fileName.ToLower());
+            ClassicAssert.AreEqual(checkRule.Profiles, FirewallProfiles.Domain | FirewallProfiles.Private);
 
             _firewall.Rules.Remove(rule);
 
             checkRule = _firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName);
-            Assert.IsNull(checkRule);
+            ClassicAssert.IsNull(checkRule);
         }
 
         [Test]
@@ -60,14 +61,14 @@ namespace WindowsFirewallHelper.Tests
             _firewall.Rules.Add(rule);
 
             var checkRule = _firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName);
-            Assert.IsNotNull(checkRule);
-            Assert.AreEqual(checkRule.Protocol, FirewallProtocol.ICMPv4);
-            Assert.AreEqual(checkRule.Profiles, FirewallProfiles.Domain);
+            ClassicAssert.IsNotNull(checkRule);
+            ClassicAssert.AreEqual(checkRule.Protocol, FirewallProtocol.ICMPv4);
+            ClassicAssert.AreEqual(checkRule.Profiles, FirewallProfiles.Domain);
 
             _firewall.Rules.Remove(rule);
 
             checkRule = _firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName);
-            Assert.IsNull(checkRule);
+            ClassicAssert.IsNull(checkRule);
         }
 
         [Test]
@@ -90,16 +91,16 @@ namespace WindowsFirewallHelper.Tests
             _firewall.Rules.Add(rule);
 
             var checkRule = _firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName);
-            Assert.IsNotNull(checkRule);
-            Assert.IsTrue(checkRule.RemoteAddresses.SequenceEqual(new IAddress[] {remoteAddress}));
-            Assert.AreEqual(checkRule.Profiles, FirewallProfiles.Public);
-            Assert.AreEqual(checkRule.Direction, FirewallDirection.Outbound);
-            Assert.AreEqual(checkRule.Action, FirewallAction.Block);
+            ClassicAssert.IsNotNull(checkRule);
+            ClassicAssert.IsTrue(checkRule.RemoteAddresses.SequenceEqual(new IAddress[] {remoteAddress}));
+            ClassicAssert.AreEqual(checkRule.Profiles, FirewallProfiles.Public);
+            ClassicAssert.AreEqual(checkRule.Direction, FirewallDirection.Outbound);
+            ClassicAssert.AreEqual(checkRule.Action, FirewallAction.Block);
 
             _firewall.Rules.Remove(rule);
 
             checkRule = _firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName);
-            Assert.IsNull(checkRule);
+            ClassicAssert.IsNull(checkRule);
         }
 
         [Test]
@@ -120,14 +121,14 @@ namespace WindowsFirewallHelper.Tests
             _firewall.Rules.Add(rule);
 
             var checkRule = _firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName);
-            Assert.IsNotNull(checkRule);
-            Assert.IsTrue(checkRule.LocalPorts.Contains(portNumber));
-            Assert.AreEqual(checkRule.Profiles, FirewallProfiles.Domain | FirewallProfiles.Private);
+            ClassicAssert.IsNotNull(checkRule);
+            ClassicAssert.IsTrue(checkRule.LocalPorts.Contains(portNumber));
+            ClassicAssert.AreEqual(checkRule.Profiles, FirewallProfiles.Domain | FirewallProfiles.Private);
 
             _firewall.Rules.Remove(rule);
 
             checkRule = _firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName);
-            Assert.IsNull(checkRule);
+            ClassicAssert.IsNull(checkRule);
         }
 
 
@@ -169,36 +170,36 @@ namespace WindowsFirewallHelper.Tests
             firewall.Rules.Add(rule3);
 
             var checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName1);
-            Assert.IsNotNull(checkRule);
-            Assert.AreEqual(checkRule.ApplicationName.ToLower(), fileName1.ToLower());
-            Assert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
-            Assert.AreEqual(checkRule.Action, FirewallAction.Allow);
-            Assert.AreEqual(checkRule.Protocol, FirewallProtocol.Any);
+            ClassicAssert.IsNotNull(checkRule);
+            ClassicAssert.AreEqual(checkRule.ApplicationName.ToLower(), fileName1.ToLower());
+            ClassicAssert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
+            ClassicAssert.AreEqual(checkRule.Action, FirewallAction.Allow);
+            ClassicAssert.AreEqual(checkRule.Protocol, FirewallProtocol.Any);
 
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName2);
-            Assert.IsNotNull(checkRule);
-            Assert.AreEqual(checkRule.ApplicationName.ToLower(), fileName2.ToLower());
-            Assert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
-            Assert.AreEqual(checkRule.Action, FirewallAction.Allow);
-            Assert.AreEqual(checkRule.Protocol, FirewallProtocol.Any);
+            ClassicAssert.IsNotNull(checkRule);
+            ClassicAssert.AreEqual(checkRule.ApplicationName.ToLower(), fileName2.ToLower());
+            ClassicAssert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
+            ClassicAssert.AreEqual(checkRule.Action, FirewallAction.Allow);
+            ClassicAssert.AreEqual(checkRule.Protocol, FirewallProtocol.Any);
 
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName3);
-            Assert.IsNotNull(checkRule);
-            Assert.AreEqual(checkRule.ApplicationName.ToLower(), fileName3.ToLower());
-            Assert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
-            Assert.AreEqual(checkRule.Action, FirewallAction.Allow);
-            Assert.AreEqual(checkRule.Protocol, FirewallProtocol.Any);
+            ClassicAssert.IsNotNull(checkRule);
+            ClassicAssert.AreEqual(checkRule.ApplicationName.ToLower(), fileName3.ToLower());
+            ClassicAssert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
+            ClassicAssert.AreEqual(checkRule.Action, FirewallAction.Allow);
+            ClassicAssert.AreEqual(checkRule.Protocol, FirewallProtocol.Any);
 
             firewall.Rules.Remove(rule1);
             firewall.Rules.Remove(rule2);
             firewall.Rules.Remove(rule3);
 
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName1);
-            Assert.IsNull(checkRule);
+            ClassicAssert.IsNull(checkRule);
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName2);
-            Assert.IsNull(checkRule);
+            ClassicAssert.IsNull(checkRule);
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName3);
-            Assert.IsNull(checkRule);
+            ClassicAssert.IsNull(checkRule);
         }
 
         [Test]
@@ -209,7 +210,7 @@ namespace WindowsFirewallHelper.Tests
             ushort portNumber = 10001;
 
             // Any protocols except TCP and UDP are not supported with Windows Firewall With Advanced Security
-            Assert.Throws<FirewallWASInvalidProtocolException>(() =>
+            ClassicAssert.Throws<FirewallWASInvalidProtocolException>(() =>
                 {
                     firewall.CreatePortRule(
                         FirewallProfiles.Private,
@@ -270,32 +271,32 @@ namespace WindowsFirewallHelper.Tests
             firewall.Rules.Add(rule4);
 
             var checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName1);
-            Assert.IsNotNull(checkRule);
-            Assert.AreEqual(checkRule.LocalPorts, new[] {portNumber1});
-            Assert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
-            Assert.AreEqual(checkRule.Action, FirewallAction.Allow);
-            Assert.AreEqual(checkRule.Protocol, FirewallProtocol.TCP);
+            ClassicAssert.IsNotNull(checkRule);
+            ClassicAssert.AreEqual(checkRule.LocalPorts, new[] {portNumber1});
+            ClassicAssert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
+            ClassicAssert.AreEqual(checkRule.Action, FirewallAction.Allow);
+            ClassicAssert.AreEqual(checkRule.Protocol, FirewallProtocol.TCP);
 
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName2);
-            Assert.IsNotNull(checkRule);
-            Assert.AreEqual(checkRule.LocalPorts, new[] {portNumber2});
-            Assert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
-            Assert.AreEqual(checkRule.Action, FirewallAction.Allow);
-            Assert.AreEqual(checkRule.Protocol, FirewallProtocol.TCP);
+            ClassicAssert.IsNotNull(checkRule);
+            ClassicAssert.AreEqual(checkRule.LocalPorts, new[] {portNumber2});
+            ClassicAssert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
+            ClassicAssert.AreEqual(checkRule.Action, FirewallAction.Allow);
+            ClassicAssert.AreEqual(checkRule.Protocol, FirewallProtocol.TCP);
 
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName3);
-            Assert.IsNotNull(checkRule);
-            Assert.AreEqual(checkRule.LocalPorts, new[] {portNumber3});
-            Assert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
-            Assert.AreEqual(checkRule.Action, FirewallAction.Allow);
-            Assert.AreEqual(checkRule.Protocol, FirewallProtocol.TCP);
+            ClassicAssert.IsNotNull(checkRule);
+            ClassicAssert.AreEqual(checkRule.LocalPorts, new[] {portNumber3});
+            ClassicAssert.AreEqual(checkRule.Profiles, FirewallProfiles.Private);
+            ClassicAssert.AreEqual(checkRule.Action, FirewallAction.Allow);
+            ClassicAssert.AreEqual(checkRule.Protocol, FirewallProtocol.TCP);
 
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName4);
-            Assert.IsNotNull(checkRule);
-            Assert.AreEqual(checkRule.LocalPorts, new[] {portNumber4});
-            Assert.AreEqual(checkRule.Profiles, FirewallProfiles.Domain);
-            Assert.AreEqual(checkRule.Action, FirewallAction.Allow);
-            Assert.AreEqual(checkRule.Protocol, FirewallProtocol.UDP);
+            ClassicAssert.IsNotNull(checkRule);
+            ClassicAssert.AreEqual(checkRule.LocalPorts, new[] {portNumber4});
+            ClassicAssert.AreEqual(checkRule.Profiles, FirewallProfiles.Domain);
+            ClassicAssert.AreEqual(checkRule.Action, FirewallAction.Allow);
+            ClassicAssert.AreEqual(checkRule.Protocol, FirewallProtocol.UDP);
 
             firewall.Rules.Remove(rule1);
             firewall.Rules.Remove(rule2);
@@ -303,13 +304,13 @@ namespace WindowsFirewallHelper.Tests
             firewall.Rules.Remove(rule4);
 
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName1);
-            Assert.IsNull(checkRule);
+            ClassicAssert.IsNull(checkRule);
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName2);
-            Assert.IsNull(checkRule);
+            ClassicAssert.IsNull(checkRule);
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName3);
-            Assert.IsNull(checkRule);
+            ClassicAssert.IsNull(checkRule);
             checkRule = firewall.Rules.FirstOrDefault(firewallRule => firewallRule.Name == ruleName4);
-            Assert.IsNull(checkRule);
+            ClassicAssert.IsNull(checkRule);
         }
 
         [SetUp]

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace WindowsFirewallHelper.Tests
 {
@@ -46,10 +47,10 @@ namespace WindowsFirewallHelper.Tests
                 Thread.Sleep(100);
             }
 
-            Assert.AreNotEqual(threadId1, threadId2);
-            Assert.AreSame(instance1, instance2);
+            ClassicAssert.AreNotEqual(threadId1, threadId2);
+            ClassicAssert.AreSame(instance1, instance2);
 
-            Assert.IsTrue(rules1.SequenceEqual(rules2));
+            ClassicAssert.IsTrue(rules1.SequenceEqual(rules2));
         }
 
         [Test]
@@ -92,10 +93,10 @@ namespace WindowsFirewallHelper.Tests
                 Thread.Sleep(100);
             }
 
-            Assert.AreNotEqual(threadId1, threadId2);
-            Assert.AreNotSame(instance1, instance2);
+            ClassicAssert.AreNotEqual(threadId1, threadId2);
+            ClassicAssert.AreNotSame(instance1, instance2);
 
-            Assert.IsTrue(rules1.SequenceEqual(rules2));
+            ClassicAssert.IsTrue(rules1.SequenceEqual(rules2));
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Net;
 using WindowsFirewallHelper.Addresses;
 using WindowsFirewallHelper.InternalHelpers;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace WindowsFirewallHelper.Tests
 {
@@ -29,19 +30,19 @@ namespace WindowsFirewallHelper.Tests
 
             // Check if all addresses resulted in an entry
             var commas = addressesInString.Count(c => c == ',');
-            Assert.AreEqual(addresses.Length - 1, commas);
+            ClassicAssert.AreEqual(addresses.Length - 1, commas);
 
             var addressesParsed = AddressHelper.StringToAddresses(addressesInString);
 
             // Check if parsing result in the same output
-            Assert.IsTrue(addresses.SequenceEqual(addressesParsed));
+            ClassicAssert.IsTrue(addresses.SequenceEqual(addressesParsed));
 
             addressesInString = AddressHelper.AddressesToString(
                 addresses.Concat(new IAddress[] {SingleIP.Any}).ToArray()
             );
 
             // Check if adding `SingleIP.Any` results in ignoring all other addresses
-            Assert.AreEqual("*", addressesInString);
+            ClassicAssert.AreEqual("*", addressesInString);
         }
 
         [Test]
@@ -52,8 +53,8 @@ namespace WindowsFirewallHelper.Tests
             var ip2 = IPAddress.Parse("190.168.1.1");
             var max = AddressHelper.Max(ip1, ip2);
             var min = AddressHelper.Min(ip1, ip2);
-            Assert.AreEqual(ip1, max);
-            Assert.AreEqual(ip2, min);
+            ClassicAssert.AreEqual(ip1, max);
+            ClassicAssert.AreEqual(ip2, min);
         }
 
         [Test]
@@ -64,8 +65,8 @@ namespace WindowsFirewallHelper.Tests
             var ip2 = IPAddress.Parse("2607:fea8:4260:315::9");
             var max = AddressHelper.Max(ip1, ip2);
             var min = AddressHelper.Min(ip1, ip2);
-            Assert.AreEqual(ip1, max);
-            Assert.AreEqual(ip2, min);
+            ClassicAssert.AreEqual(ip1, max);
+            ClassicAssert.AreEqual(ip2, min);
         }
     }
 }
